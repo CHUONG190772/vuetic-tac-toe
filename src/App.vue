@@ -1,26 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+ <div id="app">
+    <div v-if="!gameStarted">
+      <h1>Tic Tac Toe</h1>
+      <label for="rows">Số hàng: </label>
+      <input type="number" id="rows" v-model.number="rows">
+      <label for="cols"> Số cột: </label>
+      <input type="number" id="cols" v-model.number="cols">
+      <button @click="startGame">Bắt đầu</button>
+    </div>
+    <div v-else>
+      <Game :rows="rows" :cols="cols" />
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Game from './components/Game.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Game
+  },
+  data() {
+    return {
+      gameStarted: false,
+      rows: 3,
+      cols: 3
+    };
+  },
+  methods: {
+    startGame() {
+      this.gameStarted = true;
+    }
   }
-}
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+button:hover{
+  background-color: aquamarine;
 }
 </style>
