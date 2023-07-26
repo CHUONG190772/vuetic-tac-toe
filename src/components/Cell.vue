@@ -13,6 +13,7 @@
         if (!this.value) {
           this.$emit('click');
         }
+        alert("abc")
       }
     }
   };

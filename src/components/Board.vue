@@ -32,15 +32,15 @@
   }
   
   .cell {
-    width: 40px;
-    height: 40px;
+    /* width: 40px;
+    height: 40px; */
     border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
     font-size: 20px;
-    background-color: #fff;
+    background-color: #afeef3;
     transition: background-color 0.3s ease;
   }
   .cell:hover{
