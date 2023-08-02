@@ -2,8 +2,8 @@
   <div>
     <h1>Tic Tac Toe</h1>
     <GameBoard :board="board" @make-move="makeMove" />
-    <div v-if="gameOver">
-      <p v-if="winner" class="win">Winner: {{ winner }}</p>
+    <div v-if="gameOver" class="over">
+      <p v-if="winner" class="win" >Winner: {{ winner }}</p>
       <p v-else>It's a draw!</p>
       <button @click="resetGame">Play Again</button>
     </div>
@@ -14,7 +14,8 @@
         <li v-for="(move, index) in sortedMoveHistory" :key="index">
           <button
             @click="jumpToMove(index)"
-            :class="{ 'current-move': index === currentMove }"
+            :class="{ 'current-move': index === currentMove,'count-over-2': move.count > 2,
+              'count-over-5': move.count >= 5 }"
           >
             {{ move.position }}({{ move.player }})
           </button>
@@ -64,8 +65,8 @@
       this.currentMove = -1;
     },
       checkWin(row, col) {
- 
         const player = this.board[row][col];
+        
     // Kiểm tra hàng ngang
     let count = 1;
     let i = col - 1;
@@ -78,9 +79,12 @@
       count++;
       i++;
     }
-    if (count >= 3) {
-      return true;
-    }
+    if ((this.rows <= 4 && this.cols <=4 && count > 2 )) {
+    return true;
+  }
+  if(this.rows > 4 && this.cols > 4 && count >= 5){
+    return true;
+  }
 
     // Kiểm tra hàng dọc
     count = 1;
@@ -94,11 +98,14 @@
       count++;
       j++;
     }
-    if (count >= 3) {
-      return true;
-    }
+    if ((this.rows <= 4 && this.cols <=4 &&  4< count > 2 )) {
+    return true;
+  }
+  if(this.rows > 4 && this.cols > 4 && count >= 5){
+    return true;
+  }
 
-    // Kiểm tra đường chéo chính (\)
+    // Kiểm tra đường chéo chính 
     count = 1;
     i = col - 1;
     j = row - 1;
@@ -114,11 +121,14 @@
       i++;
       j++;
     }
-    if (count >= 3) {
-      return true;
-    }
+    if ((this.rows <= 4 && this.cols <=4 && count > 2 )) {
+    return true;
+  }
+  if(this.rows > 4 && this.cols > 4 && count >= 5){
+    return true;
+  }
 
-    // Kiểm tra đường chéo phụ (/)
+    // Kiểm tra đường chéo phụ
     count = 1;
     i = col + 1;
     j = row - 1;
@@ -134,19 +144,20 @@
       i--;
       j++;
     }
-    if (count >= 3) {
-      return true;
-    }
+    if ((this.rows <= 4 && this.cols <= 4 && count > 2 )) {
+    return true;
+  }
+  if(this.rows > 4 && this.cols > 4 && count >= 5){
+    return true;
+  }
     return false;
-      },
-
+        },
     isBoardFull() {
         return this.board.every((row) => row.every((cell) => cell !== ''));
       },
     resetGame() {
         this.startGame();
-      },
-
+      },      
       makeMove(row, col) {
     if (!this.gameOver && this.board[row][col] === '') {
       this.board[row][col] = this.currentPlayer;
@@ -156,7 +167,7 @@
         position: `(${col}, ${row})`,
         row: row,
         col: col,
-        board: this.board.map(row => row.slice()) // Save a copy of the current board state
+        board: this.board.map(row => row.slice())
       });
 
       if (this.checkWin(row, col)) {
@@ -171,15 +182,10 @@
     }
   },
       jumpToMove(index) {
-    // Reset the board to the state of the selected move
     this.board = Array(this.rows)
       .fill()
       .map((_, row) => this.moveHistory[index].board[row].slice());
-
-    // Update currentPlayer based on the selected move
     this.currentPlayer = this.moveHistory[index].player;
-
-    // Update the game status
     this.gameOver = false;
     this.winner = null;
     if (this.checkWin(this.moveHistory[index].row, this.moveHistory[index].col)) {
@@ -210,16 +216,14 @@
   }
   
   .cell {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
     border: 1px solid black;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-  }
-  .over{
-    background-color:  yellow;
+    text-align: center;
   }
   button{
     background-color: greenyellow;
@@ -229,5 +233,10 @@
   button:hover{
     background-color: bisque;
   }
+ 
+  .winner{
+    background-color: aliceblue;
+  }
+  
 </style>
   
