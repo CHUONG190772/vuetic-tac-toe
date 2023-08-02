@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="cell" @click="handleClick">
       {{ value }}
     </div>
@@ -30,4 +30,4 @@
     cursor: pointer;
   }
   </style>
-  
+   -->

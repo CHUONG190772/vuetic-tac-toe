@@ -30,6 +30,9 @@
     display: flex;
     justify-content: center;
   }
+  .winner{
+    background-color: black;
+  }
   
   .cell {
     /* width: 40px;
@@ -56,6 +59,21 @@
   }
   .cell-x:hover{
     color: aqua;
+  }
+  .cell-over{
+    background-color: black;
+  }
+  button.count-over-2 {
+    background-color: black;
+    color: white;
+  }
+
+  button.count-over-5 {
+    background-color: black;
+    color: yellow;
+  }
+div.cell.over{
+    background-color: black;
   }
   </style>
   

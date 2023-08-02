@@ -81,7 +81,7 @@ button:hover{
     background-color: rgba(0, 0, 0, 0.5);
     border: none;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 10px;
     text-align: center;
     justify-content: center;
     align-items: center;
